@@ -2,6 +2,7 @@
 * [practice-1 er-модель и основные понятия (05.09.2026)](#practice-1-er-модель-и-основные-понятия)
 * [practice-2 реляционная модель (12.09.2026)](#practice-2-реляционная-модель)
 * [practice-3 SQL DDL (19.09.2026)](#practice-3-SQL-DDL)
+* [practice-4 SELECT (03.10.2026)](#practice-4-SELECT)
 
 # practice-1 er-модель и основные понятия
 05.09.2026  
@@ -27,6 +28,7 @@ pk-ключ - определенный, уникальный и неизбыто
 19.09.2026  
 DDL (Data Definition Language):  
 Создание сущностей, их pk и fk. Работа с типами, уникальностью и ограничениями.
+
 ```sql
 -- Создание таблицы
 CREATE TABLE table_name (
@@ -93,6 +95,7 @@ uq_...: ограничения для UNIQUE
 ck_...: ограничения для CKECK
 df_...: ограничения для DEFAULT
 */
+
 CREATE TABLE groups
 (
 	id INT IDENTITY(1, 1) CONSTRAINT pk_groups PRIMARY KEY,
@@ -124,4 +127,42 @@ ALTER TABLE students DROP COLUMN email;
 ALTER TABLE students ALTER COLUMN second_name NVARCHAR(300);
 ```
 
-# practice-4 SQL DML(Data Manipulation Language) DCL(Data Controll Language) TCL(Transactions Controll Language)
+# practice-4 SELECT
+03.10.2026
+
+```sql
+SELECT [DISTINCT] column_1 <короткое название>, column_2 c_2
+FROM table_1 <короткое название>, table_2 t_2
+-- FROM из нескольких таблиц даёт декартово произведение
+<тип JOIN> [JOIN] table_3 t_3 ON <УСЛОВИЕ СВЯЗИ>
+[WHERE] <УСЛОВИЕ>
+[ORDER BY] <УСЛОВИЕ>
+```
+
+Ключевые слова
+* SELECT: выбирает колонки из таблиц
+* DISTINCT: оставляет только уникальыне строки
+* FROM: из каких таблиц идет выборка
+* WHERE: условие для результируещей таблицы
+* ORDER BY: сортировка по условию
+* INNER JOIN: соединение двух таблиц, строки из левой и правой, которые соответсвуют условию
+* LEFT [OUTER] JOIN: соединение двух таблиц, все строки из левой и по условию из правой
+* RIGHT [OUTER] JOIN: соединение двух таблиц, по условию из левой и все строки из правой
+* FULL [OUTER]  JOIN: соединение двух таблиц, все строки из левой и правой
+* CROSS JOIN: декартово произведение
+
+Основные операторы и фильтрация (DQL)
+* DISTINCT: убирает дубликаты из результата. Если указано несколько атрибутов, уникальной должна быть вся комбинация (строка).
+* COUNT(атрибут): количество значений в колонке (игнорирует NULL). COUNT(*) - общее количество кортежей.
+* BETWEEN {A} AND {B}: фильтрация интервала (включая границы A и B).
+* IN / NOT IN (список): проверка на вхождение значения в перечень или подзапрос.
+* MIN(), MAX(), AVG(), SUM(): агрегатные функции (минимум, максимум, среднее, сумма).
+* LIKE '{шаблон}': поиск по маске. % - любая последовательность символов (включая пустую), _ - ровно один любой символ.
+* LIMIT {N}: ограничивает вывод первыми N кортежами.
+* IS NULL / IS NOT NULL: единственно верный способ проверить поле на «пустоту» (NULL нельзя сравнивать через = или <>).
+
+
+
+
+  
+SQL DML(Data Manipulation Language) DCL(Data Controll Language) TCL(Transactions Controll Language)
