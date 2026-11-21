@@ -4,6 +4,7 @@
 * [practice-3 SQL DDL (19.09.2026)](#practice-3-SQL-DDL)
 * [practice-4 SELECT (03.10.2026)](#practice-4-SELECT)
 * [practice-5 SELECT (07.11.2026)](#practice-5-SELECT)
+* [practice-6  (21.11.2026)](#practice-6-Процедуры,-функции,-тригеры)
 
 # practice-1 er-модель и основные понятия
 05.09.2026  
@@ -80,9 +81,9 @@ CREATE TABLE students
 
 /*
 Правила:
-1) CASCADE: автоматическое удаление/обновление связанных строк
-2) SET NULL: устанавливает значение внешнего ключа в NULL
-3) SET DEFAULT: устанавливает значение внешнего ключа в значение по умолчанию, заданное при создании таблицы
+1) CASCADE		: автоматическое удаление/обновление связанных строк
+2) SET NULL		: устанавливает значение внешнего ключа в NULL
+3) SET DEFAULT	: устанавливает значение внешнего ключа в значение по умолчанию, заданное при создании таблицы
 4) RESTRICT / NO ACTION: блокируют удаление или изменение, выдаёт ошибку
 */
 );
@@ -90,11 +91,11 @@ CREATE TABLE students
 -- Оформление ограничений через CONSTRAINT
 /*
 Как задавать названия для CONSTRAINT
-pk_...: ограничения для PK
-fk_...: ограничения для FK
-uq_...: ограничения для UNIQUE
-ck_...: ограничения для CKECK
-df_...: ограничения для DEFAULT
+pk_ : ограничения для PK
+fk_ : ограничения для FK
+uq_ : ограничения для UNIQUE
+ck_ : ограничения для CKECK
+df_ : ограничения для DEFAULT
 */
 
 CREATE TABLE groups
@@ -141,33 +142,33 @@ FROM table_1 <короткое название>, table_2 t_2
 ```
 
 Ключевые слова
-* SELECT: выбирает колонки из таблиц
-* DISTINCT: оставляет только уникальыне строки
-* FROM: из каких таблиц идет выборка
-* WHERE: условие для результируещей таблицы
-* ORDER BY: сортировка по условию
-* INNER JOIN: соединение двух таблиц, строки из левой и правой, которые соответсвуют условию
-* LEFT [OUTER] JOIN: соединение двух таблиц, все строки из левой и по условию из правой
-* RIGHT [OUTER] JOIN: соединение двух таблиц, по условию из левой и все строки из правой
-* FULL [OUTER]  JOIN: соединение двух таблиц, все строки из левой и правой
-* CROSS JOIN: декартово произведение
-
+* SELECT : выбирает колонки из таблиц
+* DISTINCT : оставляет только уникальыне строки
+* FROM : из каких таблиц идет выборка
+* WHERE : условие для результируещей таблицы
+* ORDER BY : сортировка по условию
+* INNER JOIN : соединение двух таблиц, строки из левой и правой, которые соответсвуют условию
+* LEFT [OUTER] JOIN : соединение двух таблиц, все строки из левой и по условию из правой
+* RIGHT [OUTER] JOIN : соединение двух таблиц, по условию из левой и все строки из правой
+* FULL [OUTER]  JOIN : соединение двух таблиц, все строки из левой и правой
+* CROSS JOIN : декартово произведение
+  
 Основные операторы и фильтрация (DQL)
-* DISTINCT: убирает дубликаты из результата. Если указано несколько атрибутов, уникальной должна быть вся комбинация (строка).
-* COUNT(атрибут): количество значений в колонке (игнорирует NULL). COUNT(*) - общее количество кортежей.
-* BETWEEN {A} AND {B}: фильтрация интервала (включая границы A и B).
-* IN / NOT IN (список): проверка на вхождение значения в перечень или подзапрос.
-* MIN(), MAX(), AVG(), SUM(): агрегатные функции (минимум, максимум, среднее, сумма).
-* LIKE '{шаблон}': поиск по маске. % - любая последовательность символов (включая пустую), _ - ровно один любой символ.
-* LIMIT {N}: ограничивает вывод первыми N кортежами.
-* IS NULL / IS NOT NULL: единственно верный способ проверить поле на «пустоту» (NULL нельзя сравнивать через = или <>).
+* DISTINCT : убирает дубликаты из результата. Если указано несколько атрибутов, уникальной должна быть вся комбинация (строка).
+* COUNT(атрибут) : количество значений в колонке (игнорирует NULL). COUNT(*) - общее количество кортежей.
+* BETWEEN {A} AND {B} : фильтрация интервала (включая границы A и B).
+* IN / NOT IN (список) : проверка на вхождение значения в перечень или подзапрос.
+* MIN(), MAX(), AVG(), SUM() : агрегатные функции (минимум, максимум, среднее, сумма).
+* LIKE '{шаблон}' : поиск по маске. % - любая последовательность символов (включая пустую), _ - ровно один любой символ.
+* LIMIT {N} : ограничивает вывод первыми N кортежами.
+* IS NULL / IS NOT NULL : единственно верный способ проверить поле на «пустоту» (NULL нельзя сравнивать через = или <>).
 
 
 # practice-5 SELECT
 07.11.2026
 
-* ISNULL(<выражение>, <замена>) : если выражение null возвращает <замена>, иначе возвращает <выражение>. Тип <замены> = тип <выражение>  
-* COALESCE(a_1, a_2, ..., a_n) : возвращает первое not null значение из списка атрибутов.  
+* ISNULL(<выражение>, <замена>)	: если выражение null возвращает <замена>, иначе возвращает <выражение>. Тип <замены> = тип <выражение>  
+* COALESCE(a_1, a_2, ..., a_n)	: возвращает первое not null значение из списка атрибутов.  
 * CASE WHEN :  
 	CASE WHEN условие_1 THEN значение_1  
 	WHEN условие_2 THEN значение_2  
@@ -179,9 +180,129 @@ FROM table_1 <короткое название>, table_2 t_2
 * Подзапросы/CTE : 
 	* 1*1 : WHERE атрибут = (скалярный_подзапрос)
 	* 1*N : использлвание с EXISTS, IN, ALL
-	* N*N^ использование с JOIN
+	* N*N : использование с JOIN
 * Коррелированный подзапрос : ссылается на внешний запрос или атрибут
 
+# practice-6 Процедуры, функции, тригеры
+21.11.2026
 
+* Batch (пакет) : набор команд, которые исполняются вместе, имеют свою область видимости для переменных
+* Go : разделитель пакетов
   
+```sql
+DECLARE @local_value INT; 	-- обычная переменная
+DECLARE @@global_value INT; -- глобальная переменная
+SET @value = 42; : задание значения
+
+SELECT @value = id
+FROM Users
+WHERE id > 10
+
+DECLARE @a INT = 1, @b INT = 1
+SELECT @a  = OrderId FROM Orders WHERE 1 = 0
+SET @b = (SELECT OrderId FROM Orders WHERE 1 = 0)
+SELECT @1 AS a, @b AS b
+-- 1, null
+-- SELECT присваиваение пропускается, значение остается
+-- SET подзапрос возвращает null и b принимает его
+
+-- VIEW : сохранение SELECT + оптимизация под капотом
+CREATE ON ALTER VIEW dbo.OrderTools
+AS
+SElECT ...
+GO;
+
+-- Процедура : набор команд, которые хранятся на сервере, может быть сложнее VIEW
+CREATE PROCEDURE dbo.GetOrderTotal
+    @CustomerId INT,                  	-- обязательный входной параметр
+    @Status NVARCHAR(20) = N'Paid',		-- необязательный параметр (есть значение по умолчанию)
+    @TotalAmount DECIMAL(18, 2) OUTPUT	-- выходной параметр для возврата значения
+AS
+BEGIN
+    SELECT @TotalAmount = ISNULL(SUM(Amount), 0)
+    FROM dbo.Orders
+    WHERE CustomerId = @CustomerId AND Status = @Status;
+
+    -- Возвращаем статус выполнения (0 обычно означает успех)
+    RETURN 0;
+END;
+GO
+
+DECLARE @ResultAmount DECIMAL(18, 2);
+DECLARE @ReturnCode INT;
+
+EXEC @ReturnCode = dbo.GetOrderTotal 
+    @CustomerId = 15, 
+    @TotalAmount = @ResultAmount OUTPUT;
+
+SELECT @ResultAmount AS Total, @ReturnCode AS StatusCode;
+
+-- Пользовательские функции : обязана возвращать return. Можно вызвать внутри подзапросов. Есть три типа функций
+-- Скалярная функция (Scalar UDF) : Возвращает одно значение любого простого типа
+CREATE FUNCTION dbo.GetDiscountPrice (
+    @Price DECIMAL(10, 2),
+    @DiscountPercent INT
+)
+RETURNS DECIMAL(10, 2)
+AS
+BEGIN
+    RETURN @Price * (100 - @DiscountPercent) / 100.0;
+END;
+GO
+
+-- Вызов (схема dbo. обязательна)
+SELECT ProductName, dbo.GetDiscountPrice(Price, 15) AS FinalPrice
+FROM dbo.Products;
+
+-- Встраиваемая табличная функция (Inline TVF) : Возвращает таблицу, состоящую из одного SELECT-запроса. В ней нет блока BEGIN...END. Работает быстро, так как оптимизатор встраивает ее в основной запрос как обычное представление (VIEW) с параметрами
+CREATE FUNCTION dbo.GetOrdersByCustomer (@CustomerId INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT OrderId, OrderDate, TotalAmount
+    FROM dbo.Orders
+    WHERE CustomerId = @CustomerId
+);
+GO
+
+-- Вызов (как обычной таблицы в FROM или через CROSS APPLY)
+SELECT * FROM dbo.GetOrdersByCustomer(42);
+
+-- Многооператорная табличная функция (Multi-Statement TVF) : Возвращает таблицу, но внутри содержит блок BEGIN...END, где можно объявлять переменные, циклы, условия IF и пошагово наполнять возвращаемую табличную переменную
+CREATE FUNCTION dbo.GetTopCustomers (@MinTotal DECIMAL(18, 2))
+RETURNS @Result TABLE (
+    CustomerId INT,
+    CustomerName NVARCHAR(100),
+    TotalSpent DECIMAL(18, 2)
+)
+AS
+BEGIN
+    INSERT INTO @Result (CustomerId, CustomerName, TotalSpent)
+    SELECT c.Id, c.Name, SUM(o.TotalAmount)
+    FROM dbo.Customers c
+    JOIN dbo.Orders o ON c.Id = o.CustomerId
+    GROUP BY c.Id, c.Name
+    HAVING SUM(o.TotalAmount) >= @MinTotal;
+
+    RETURN;
+END;
+GO
+
+-- Вызов
+SELECT * FROM dbo.GetTopCustomers(10000);
+
+-- DML-триггеры : срабатывают при изменении данных, антипатерн (много проблем)
+CREATE [ OR ALTER ] TRIGGER [схема.]имя_триггера
+ON { [схема.]имя_таблицы | [схема.]имя_представления }
+{ FOR | AFTER | INSTEAD OF }
+{ [ INSERT ] [ , ] [ UPDATE ] [ , ] [ DELETE ] }
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Тело триггера (инструкции T-SQL с использованием таблиц inserted и deleted)
+END;
+GO
+
+```
 SQL DML(Data Manipulation Language) DCL(Data Controll Language) TCL(Transactions Controll Language)
